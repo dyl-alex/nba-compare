@@ -4,6 +4,7 @@ import { setPlayerOne, setPlayerTwo } from "../slice/appSlice";
 import { useLazyGetLeagueListQuery } from "../api/playerApi";
 import { Player } from "../models/player.model";
 import { useEffect, useState } from "react";
+import { PlayerContainer } from "./PlayerContainer";
 
 export const Dashboard = () => {
 
@@ -16,15 +17,13 @@ export const Dashboard = () => {
 
     const [calledPlayerOne, setCalledPlayerOne] = useState<Player>();
     const [calledPlayerTwo, setCalledPlayerTwo] = useState<Player>();
-    const [numPlayer, setNumPlayer] = useState<Number>(0);
+    const [numPlayer, setNumPlayer] = useState<Number>(1);
 
     const onSubmit = (e : number) => {
         if (e === 0) {
             getLeagueList({page: 1, pageCount: 25, name: playerOne});
-            setNumPlayer(1);
         } else {
             getLeagueList({page: 1, pageCount: 25, name: playerTwo});
-            setNumPlayer(2);
         }
     }
 
@@ -33,13 +32,15 @@ export const Dashboard = () => {
             console.log("nothing");
         } else if (numPlayer === 1) {
             setCalledPlayerOne(player);
-            console.log(calledPlayerOne);
         } else {
             setCalledPlayerTwo(player);
-            console.log(calledPlayerTwo);
         }
     }, [player])
 
+    useEffect(() => {
+        console.log(calledPlayerOne);
+    }, [calledPlayerOne])
+    
     return (
        <div>
         <TextField id="outlined-basic" variant="outlined" label="Player 1" style={{marginLeft: '25px', marginRight: '25px'}}
@@ -55,7 +56,6 @@ export const Dashboard = () => {
             dispatch(setPlayerOne(e.target.value))
         }}
         ></TextField>
-        {calledPlayerOne?.data.first_name}{calledPlayerTwo?.data.first_name}
         <TextField id="outlined-basic" variant="outlined" label="Player 2" style={{marginLeft: '25px', marginRight: '25px'}}
         // modifies state for player two 
         onKeyDown={
@@ -69,6 +69,7 @@ export const Dashboard = () => {
             dispatch(setPlayerTwo(e.target.value))
         }}
         ></TextField>
+        <PlayerContainer playerOne={calledPlayerOne ? } playerTwo={calledPlayerTwo}/>
        </div> 
     )
 }
