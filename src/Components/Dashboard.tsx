@@ -20,11 +20,11 @@ export const Dashboard = () => {
 
     const onSubmit = (e : number) => {
         if (e === 0) {
-            getLeagueList({page: 1, pageCount: 25, name: playerOne});
             setNumPlayer(1);
+            getLeagueList({page: 1, pageCount: 25, name: playerOne});
         } else {
-            getLeagueList({page: 1, pageCount: 25, name: playerTwo});
             setNumPlayer(2);
+            getLeagueList({page: 1, pageCount: 25, name: playerTwo});
         }
     }
 
@@ -69,6 +69,16 @@ export const Dashboard = () => {
             dispatch(setPlayerTwo(e.target.value))
         }}
         ></TextField>
+        <div>
+            <p>
+                {calledPlayerOne?.data.first_name}
+            </p>
+        </div>
+        <div>
+            <p>
+                {playerTwo}
+            </p>
+        </div>
        </div> 
     )
 }
