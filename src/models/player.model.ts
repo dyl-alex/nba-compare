@@ -1,5 +1,5 @@
 export interface Player {
-    data: {
+    data: [{
         id: number,
         first_name: string,
         last_name: string,
@@ -16,7 +16,7 @@ export interface Player {
             full_name: string,
             name: string,
         }
-    }
+}]
     meta: {
         total_pages: number,
         current_page: number,
