@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {Player} from '../models/player.model'
+import {PlayerLists} from '../models/playerlists.model'
 
 const rapidApiHeaders = {
     "X-RapidAPI-Key": "fa925e758fmsh34e589f2771784dp142705jsn022f2c08bb33",
@@ -19,7 +19,7 @@ export const playerApi = createApi({
         }
     }),
     endpoints: (builder) => ({
-        getLeagueList: builder.query< Player , {page?: number, pageCount?: number, name: string}>({
+        getLeagueList: builder.query< PlayerLists , {page?: number, pageCount?: number, name: string}>({
             query: ({page, pageCount, name}) => ({
             url: `/players?page=${page ? page : null}&per_page=${pageCount ? pageCount : null}&search=${name}`,
             method: 'GET',

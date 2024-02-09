@@ -1,5 +1,6 @@
-export interface Player {
-    id: number,
+export interface PlayerLists {
+    data: [{
+        id: number,
         first_name: string,
         last_name: string,
         height_feet: number,
@@ -15,4 +16,12 @@ export interface Player {
             full_name: string,
             name: string,
         }
+}]
+    meta: {
+        total_pages: number,
+        current_page: number,
+        next_page: number,
+        per_page: number,
+        total_count: number,
+    }
 }

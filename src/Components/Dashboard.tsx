@@ -1,12 +1,13 @@
-import { TextField } from "@mui/material"
+import { MenuItem, TextField } from "@mui/material"
 import store, { UseAppSelector, useAppDispatch } from "../store/Store"
 import { setPlayerOne, setPlayerTwo } from "../slice/appSlice";
 import { useLazyGetLeagueListQuery } from "../api/playerApi";
-import { Player } from "../models/player.model";
+import { PlayerLists } from "../models/playerlists.model";
 import { useEffect, useState } from "react";
 import { PlayerContainer } from "./PlayerContainer";
 
 export const Dashboard = () => {
+
 
     const [getLeagueList, {data: player}] = useLazyGetLeagueListQuery();
 
@@ -15,8 +16,8 @@ export const Dashboard = () => {
     const playerTwo = UseAppSelector(store => store.app.playerTwo);
     const playerOne = UseAppSelector(store => store.app.playerOne);
 
-    const [calledPlayerOne, setCalledPlayerOne] = useState<Player>();
-    const [calledPlayerTwo, setCalledPlayerTwo] = useState<Player>();
+    const [calledPlayerOneList, setCalledPlayerOne] = useState<PlayerLists>();
+    const [calledPlayerTwoList, setCalledPlayerTwo] = useState<PlayerLists>();
     const [numPlayer, setNumPlayer] = useState<Number>(1);
     const [isInvalid, setIsInvalid] = useState<boolean>(false);
 
@@ -54,7 +55,8 @@ export const Dashboard = () => {
         onChange={(e) => {
             dispatch(setPlayerOne(e.target.value))
         }}
-        ></TextField>
+        >
+        </TextField>
         <TextField id="outlined-basic" variant="outlined" label="Player 2" error={isInvalid} style={{marginLeft: '25px', marginRight: '25px'}}
         // modifies state for player two 
         onKeyDown={
@@ -68,7 +70,7 @@ export const Dashboard = () => {
             dispatch(setPlayerTwo(e.target.value))
         }}
         ></TextField>
-        <PlayerContainer playerOne={calledPlayerOne} playerTwo={calledPlayerTwo}/>
+        <PlayerContainer playerOne={calledPlayerOneList} playerTwo={calledPlayerTwoList}/>
        </div> 
     )
 }
