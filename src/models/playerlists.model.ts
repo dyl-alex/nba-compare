@@ -1,27 +1,31 @@
-export interface PlayerLists {
-    data: [{
-        id: number,
-        first_name: string,
-        last_name: string,
-        height_feet: number,
-        height_inches: number,
-        position: string,
-        weight: number,
-        team: {
-            id:number,
-            abbreviation: string,
-            city: string,
-            conference: string,
-            division: string,
-            full_name: string,
-            name: string,
-        }
-}]
+export interface PlayerList {
+    data: [
+      {
+          id: number,
+          first_name: string,
+          last_name: string,
+          position: string,
+          height: string,
+          weight: string,
+          jersey_number: string,
+          college: string,
+          country: string,
+          draft_year: number,
+          draft_round: number,
+          draft_number: number,
+          team: {
+              id: number,
+              conference: string,
+              division: string,
+              city: string,
+              name: string,
+              full_name: string,
+              abbreviation: string
+          }
+      },
+    ],
     meta: {
-        total_pages: number,
-        current_page: number,
-        next_page: number,
-        per_page: number,
-        total_count: number,
+      next_cursor: number,
+      per_page: number
     }
-}
+  }

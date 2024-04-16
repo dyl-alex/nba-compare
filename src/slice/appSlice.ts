@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
-import { PlayerLists } from "../models/playerlists.model";
+import { PlayerList } from "../models/playerlists.model";
 
 interface appState {
     playerOne : string,

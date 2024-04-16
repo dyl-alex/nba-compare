@@ -1,31 +1,25 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {PlayerLists} from '../models/playerlists.model'
+import {PlayerList} from '../models/playerlists.model'
+import { Player } from '../models/player.model';
 
-const rapidApiHeaders = {
-    "X-RapidAPI-Key": "fa925e758fmsh34e589f2771784dp142705jsn022f2c08bb33",
-    "X-RapidAPI-Host": "free-nba.p.rapidapi.com"
-}
 export const playerApi = createApi({
     reducerPath: 'playerApi',
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_URL,
         mode: "cors",
         prepareHeaders: (headers, {getState}) => {
-            headers.set('Access-Control-Allow-Origin', '*')
-            headers.set("X-RapidAPI-Key", "fa925e758fmsh34e589f2771784dp142705jsn022f2c08bb33")
-            headers.set("X-RapidAPI-Host","free-nba.p.rapidapi.com")
-            headers.set( "access-control-allow-credentials", "true")
+            headers.set("Authorization", "fd5cd341-83dc-4614-9315-134e16b3e949")
             return headers;
         }
     }),
     endpoints: (builder) => ({
-        getLeagueList: builder.query< PlayerLists , {page?: number, pageCount?: number, name: string}>({
-            query: ({page, pageCount, name}) => ({
-            url: `/players?page=${page ? page : null}&per_page=${pageCount ? pageCount : null}&search=${name}`,
-            method: 'GET',
+        getSearchList: builder.query<PlayerList, {search?: string, cursor?: number, per_page?: number}>({
+            query: ({search, cursor, per_page}) => ({
+                url: `players?search=${search ? search : ""}&per_page=${per_page ? per_page : null}&cursor=${cursor ? cursor : null}`,
+                method: 'GET',
+            })
         }),
-    }),
     }),
 });
 
-export const {useLazyGetLeagueListQuery} = playerApi;
+export const {useGetSearchListQuery, useLazyGetSearchListQuery} = playerApi;
