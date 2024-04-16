@@ -3,27 +3,23 @@ import { createSlice } from "@reduxjs/toolkit"
 import { PlayerList } from "../models/playerlists.model";
 
 interface appState {
-    playerOne : string,
-    playerTwo : string
+   showButton: boolean
 
 }
 
 const initialState: appState = {
-    playerOne : '',
-    playerTwo : ''
+    showButton: false
 }
 
 const appSlice = createSlice({
     name: "app",
     initialState: initialState,
     reducers: {
-        setPlayerOne(state, action: PayloadAction<string>) {
-            state.playerOne = action.payload;
-        },
-        setPlayerTwo(state, action: PayloadAction<string>) {
-            state.playerTwo = action.payload;
+        setShowButton(state, action: PayloadAction<{showButton: boolean}>) {
+            state.showButton = action.payload.showButton
         }
+        
     }
 })
-export const {setPlayerOne, setPlayerTwo} = appSlice.actions
+export const {setShowButton} = appSlice.actions
 export default appSlice.reducer

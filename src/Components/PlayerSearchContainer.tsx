@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useGetSearchListQuery, useLazyGetSearchListQuery } from '../api/playerApi';
 import { useAppDispatch } from '../store/Store';
 import { PlayerList } from '../models/playerlists.model';
+import PlayerListContainer from './PlayerListContainer';
 
 interface props {
     playerSearch: number
@@ -16,6 +17,7 @@ const PlayerSearchContainer = ({playerSearch}: props) => {
 
     const [playerList, setPlayerlist] = useState<PlayerList>();
     const [searchValue, setSearchValue] = useState('');
+    const [isSelect, setIsSelected] = useState(false);
 
     const dispatch = useAppDispatch();
 
@@ -25,6 +27,7 @@ const PlayerSearchContainer = ({playerSearch}: props) => {
     }
 
     const handleSubmit = () => {
+        console.log(searchValue);
         getPlayerList({search: searchValue, per_page: 50, cursor: 50})
     }
 
@@ -52,6 +55,9 @@ const PlayerSearchContainer = ({playerSearch}: props) => {
                         }}/>    
                 </FormControl>
             </div>
+            <PlayerListContainer
+            list={playerList}
+            />
         </div>
     )
 }
