@@ -6,37 +6,32 @@ import { useAppDispatch } from "../store/Store";
 import { setShowButton } from "../slice/appSlice";
 
 interface props {
-    list?: PlayerList
+    list?: PlayerList,
+    playerSearch?: number
 }
-const PlayerListContainer = ({list}: props) => {
+const PlayerListContainer = ({list, playerSearch}: props) => {
     const dispatch = useAppDispatch();
 
     const [isSelect, setIsSelected] = useState(false);
     const [selectedPlayer, setSelectedPlayer] = useState<PlayerList["data"]>();
     const [selectId, setSelectId] = useState(0);
 
-
-    
-    useEffect(() => {
-        console.log(list);
-    }, [list])
-
     const handleClick = (item: PlayerList["data"]) => {
         if (selectId == item[0].id) {
             setIsSelected(false);
             setSelectId(0);
-            dispatch(setShowButton({showButton: false}))
+            if (playerSearch) {
+                dispatch(setShowButton({showButton: false, search: playerSearch}))
+            }
         } else {
             setIsSelected(true);
             setSelectedPlayer(item);
             setSelectId(item[0].id);
-            dispatch(setShowButton({showButton:true}))
+            if (playerSearch) {
+                dispatch(setShowButton({showButton: true, search: playerSearch}))
+            }
         }
     }
-
-    useEffect(() => {
-        console.log(selectedPlayer);
-    }, [selectedPlayer])
 
     return(
         <div>

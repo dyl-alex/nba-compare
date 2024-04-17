@@ -15,7 +15,7 @@ export const playerApi = createApi({
     endpoints: (builder) => ({
         getSearchList: builder.query<PlayerList, {search?: string, cursor?: number, per_page?: number, first_name?: string, last_name?: string}>({
             query: ({search, cursor, per_page, first_name, last_name}) => ({
-                url: `players?search=${search ? search : ""}&per_page=${per_page ? per_page : null}&cursor=${cursor ? cursor : null}`,
+                url: `players?${first_name ? 'first_name=' + first_name : ''}${last_name ? '&last_name=' + last_name : ''}${search ? 'search=' + search : ""}`,
                 method: 'GET',
             })
         }),

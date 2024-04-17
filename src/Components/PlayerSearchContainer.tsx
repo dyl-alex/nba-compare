@@ -27,12 +27,17 @@ const PlayerSearchContainer = ({playerSearch}: props) => {
     }
 
     const handleSubmit = () => {
-        console.log(searchValue);
-        getPlayerList({search: searchValue, per_page: 50, cursor: 50})
+        if (searchValue.indexOf(' ') >= 0) {
+            const x = searchValue.split(/(\s+)/);
+            getPlayerList({first_name: x[0], last_name: x[2], per_page: 50, cursor: 50})
+        } else {
+            getPlayerList({search: searchValue, per_page: 50, cursor: 50})
+        }
     }
 
     useEffect(() => {
         setPlayerlist(playerData);
+        console.log(playerData);
     }, [playerData])
 
     return(
@@ -57,6 +62,7 @@ const PlayerSearchContainer = ({playerSearch}: props) => {
             </div>
             <PlayerListContainer
             list={playerList}
+            playerSearch={playerSearch}
             />
         </div>
     )

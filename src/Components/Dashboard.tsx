@@ -2,18 +2,23 @@ import { Button } from "@mui/material";
 import { useGetSearchListQuery, useLazyGetSearchListQuery } from "../api/playerApi";
 import { UseAppSelector } from "../store/Store";
 import PlayerSearchContainer from "./PlayerSearchContainer";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
 
+    const navigate = useNavigate();
     const showButton = UseAppSelector(store => store.app.showButton);
 
+    const handleClick = () => {
+        navigate('/compare')
+    }
     return (
        <div>
             <div className="w-5/6 min-h-screen bg-slate-300 m-auto rounded">
-                {showButton && 
-                    <Button variant="contained" style={{marginTop: '4px'}}>
+                {showButton.button1 && showButton.button2 ?
+                    <Button variant="contained" size="large" style={{marginTop: '10px'}} onClick={handleClick}>
                         Compare
-                    </Button>
+                    </Button> : ''
                 }
                 <div className="w-full h-full flex mt-[15px]">
                     <div className="flex-1 w-full h-full">
