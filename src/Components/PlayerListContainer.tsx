@@ -3,7 +3,7 @@ import { PlayerList } from "../models/playerlists.model";
 import { Button, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import CachedIcon from '@mui/icons-material/Cached';
 import { useAppDispatch } from "../store/Store";
-import { setPlayerIds, setShowButton } from "../slice/appSlice";
+import { setPlayerIds, setPlayerNames, setShowButton } from "../slice/appSlice";
 
 interface props {
     list?: PlayerList,
@@ -31,6 +31,7 @@ const PlayerListContainer = ({list, playerSearch}: props) => {
             if (playerSearch) {
                 dispatch(setShowButton({showButton: true, search: playerSearch}))
                 dispatch(setPlayerIds({id: item[0].id, search: playerSearch}))
+                dispatch(setPlayerNames({name: item[0].first_name + " " + item[0].last_name, search: playerSearch}))
             }
         }
     }

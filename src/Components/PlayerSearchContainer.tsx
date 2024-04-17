@@ -6,6 +6,7 @@ import { useGetSearchListQuery, useLazyGetSearchListQuery } from '../api/playerA
 import { useAppDispatch } from '../store/Store';
 import { PlayerList } from '../models/playerlists.model';
 import PlayerListContainer from './PlayerListContainer';
+import * as d3 from 'd3';
 
 interface props {
     playerSearch: number

@@ -7,7 +7,11 @@ interface appState {
     button1: boolean,
     button2: boolean
    },
-   playerIds: number[]
+   playerIds: number[],
+   playerName: {
+    nameOne: string,
+    nameTwo: string
+   }
 }
 
 const initialState: appState = {
@@ -16,6 +20,10 @@ const initialState: appState = {
         button2: false
     },
     playerIds: [0],
+    playerName: {
+        nameOne: '',
+        nameTwo: ''
+    }
 }
 
 const appSlice = createSlice({
@@ -35,9 +43,16 @@ const appSlice = createSlice({
             } else {
                 state.playerIds[1] = action.payload.id
             }
+        },
+        setPlayerNames(state, action: PayloadAction<{name: string, search: number}>) {
+            if (action.payload.search == 1) {
+                state.playerName.nameOne = action.payload.name
+            } else {
+                state.playerName.nameTwo = action.payload.name
+            }
         }
         
     }
 })
-export const {setShowButton, setPlayerIds} = appSlice.actions
+export const {setShowButton, setPlayerIds, setPlayerNames} = appSlice.actions
 export default appSlice.reducer

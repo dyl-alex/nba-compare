@@ -3,13 +3,18 @@ import CompareContainer from "./CompareContainer"
 import { useNavigate } from "react-router-dom";
 import { UseAppSelector, useAppDispatch } from "../store/Store";
 import { useLazyGetPlayerStatsQuery } from "../api/playerApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setShowButton } from "../slice/appSlice";
+import { PlayerStats } from "../models/playerstats.model";
+import { csv } from 'd3-request';
+import * as d3 from "d3";
 
 const ComparePage = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+
+    const [cannotCompare, setCannotCompare] = useState(false);
 
     const playerIds = UseAppSelector(store => store.app.playerIds)
 
@@ -27,7 +32,9 @@ const ComparePage = () => {
     }, [])
 
     useEffect(() => {
-        console.log(playerData);
+        if (playerData?.data.length && playerData?.data.length <= 1) {
+            setCannotCompare(true);
+        }
     }, [playerData])
 
     return (
@@ -40,7 +47,14 @@ const ComparePage = () => {
                         </div>
                         <div className="flex-initial w-full text-2xl mt-3">Compare</div>
                     </div>
-                    <CompareContainer/>
+                    {cannotCompare && 
+                        <div className="m-auto w-5/6 bg-red-500 h-[100px] rounded-lg mt-5 text-white flex">
+                            <div className="m-auto mt-8 text-xl">You cannot compare one or more of the players based on lack of data</div>
+                        </div>
+                    }
+                    {!cannotCompare &&
+                            <CompareContainer playerStats={playerData}/>
+                    }
                 </div>
                 
             </div>
