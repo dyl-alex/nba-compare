@@ -4,28 +4,18 @@ import { UseAppSelector } from "../store/Store";
 import { DSVRowString } from "d3";
 
 interface props {
-    player: number
+    player: number,
+    nbaId: string
 }
 
-const CompareStatsContainer = ({player} : props) => {
-    
-    const playerNames = UseAppSelector(store => store.app.playerName);
-    const [nbaIds, setNbaIds] = useState<DSVRowString<string>[]>();
-    const [img, setImg] = useState('');
-
-
-    useEffect(() => {
-    const players = createCsv(playerNames.nameOne, playerNames.nameTwo).then((item) => {
-        setNbaIds(item)
-    });
-    }, [])
-    
-    
+const CompareStatsContainer = ({player, nbaId} : props) => {
     return (
         <>
             <div className={`w-full h-full mt-5 bg-slate-100`}>
                 <div className={`w-full h-[300px]`}>
-                    <img src={`https://cdn.nba.com/headshots/nba/latest/1040x760/${nbaIds && player === 1 ? nbaIds[0].NbaId : (nbaIds && player === 2 ? nbaIds[1].NbaId : '')}.png`}></img>
+                    {nbaId &&
+                    <img src={`https://cdn.nba.com/headshots/nba/latest/1040x760/${nbaId && player === 1 ? nbaId : (nbaId && player === 2 ? nbaId : '')}.png`}></img>
+                    }
                 </div>
             </div>
         </>
