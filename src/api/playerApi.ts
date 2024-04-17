@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {PlayerList} from '../models/playerlists.model'
 import { Player } from '../models/player.model';
+import { PlayerStats } from '../models/playerstats.model';
 
 export const playerApi = createApi({
     reducerPath: 'playerApi',
@@ -19,7 +20,13 @@ export const playerApi = createApi({
                 method: 'GET',
             })
         }),
+        getPlayerStats: builder.query<PlayerStats, {season: Number, player_ids: Number[]}>({
+            query: ({season, player_ids}) => ({
+                url: `season_averages?season=${season}&player_ids[]=${player_ids[0]}&player_ids[]=${player_ids[1]}`,
+                method: 'GET'
+            })
+        })
     }),
 });
 
-export const {useGetSearchListQuery, useLazyGetSearchListQuery} = playerApi;
+export const {useGetSearchListQuery, useLazyGetSearchListQuery, useGetPlayerStatsQuery, useLazyGetPlayerStatsQuery} = playerApi;

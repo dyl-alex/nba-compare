@@ -1,14 +1,34 @@
 import { Button } from "@mui/material"
 import CompareContainer from "./CompareContainer"
 import { useNavigate } from "react-router-dom";
+import { UseAppSelector, useAppDispatch } from "../store/Store";
+import { useLazyGetPlayerStatsQuery } from "../api/playerApi";
+import { useEffect } from "react";
+import { setShowButton } from "../slice/appSlice";
 
 const ComparePage = () => {
 
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
+    const playerIds = UseAppSelector(store => store.app.playerIds)
+
+    const [getPlayerStats, {data: playerData, isSuccess: playerDataSuccess, isLoading: playerDataLoading, isFetching: playerDataFetching}] = useLazyGetPlayerStatsQuery();
+
 
     const handleClick = () => {
+        dispatch(setShowButton({showButton: false, search: 1}))
+        dispatch(setShowButton({showButton: false, search: 2}))
         navigate('/');
     }
+    
+    useEffect(() => {
+        getPlayerStats({season: 2023, player_ids: playerIds})
+    }, [])
+
+    useEffect(() => {
+        console.log(playerData);
+    }, [playerData])
 
     return (
         <div>

@@ -6,15 +6,16 @@ interface appState {
    showButton: {
     button1: boolean,
     button2: boolean
-   }
-
+   },
+   playerIds: number[]
 }
 
 const initialState: appState = {
     showButton: {
         button1: false,
         button2: false
-    }
+    },
+    playerIds: [0],
 }
 
 const appSlice = createSlice({
@@ -27,9 +28,16 @@ const appSlice = createSlice({
             } else {
                 state.showButton.button2 = action.payload.showButton;
             }
+        },
+        setPlayerIds(state, action: PayloadAction<{id: number, search: number}>) {
+            if (action.payload.search == 1) {
+                state.playerIds[0] = action.payload.id
+            } else {
+                state.playerIds[1] = action.payload.id
+            }
         }
         
     }
 })
-export const {setShowButton} = appSlice.actions
+export const {setShowButton, setPlayerIds} = appSlice.actions
 export default appSlice.reducer

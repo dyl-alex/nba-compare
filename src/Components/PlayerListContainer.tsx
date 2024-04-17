@@ -3,7 +3,7 @@ import { PlayerList } from "../models/playerlists.model";
 import { Button, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import CachedIcon from '@mui/icons-material/Cached';
 import { useAppDispatch } from "../store/Store";
-import { setShowButton } from "../slice/appSlice";
+import { setPlayerIds, setShowButton } from "../slice/appSlice";
 
 interface props {
     list?: PlayerList,
@@ -22,6 +22,7 @@ const PlayerListContainer = ({list, playerSearch}: props) => {
             setSelectId(0);
             if (playerSearch) {
                 dispatch(setShowButton({showButton: false, search: playerSearch}))
+                dispatch(setPlayerIds({id: 0, search: playerSearch}))
             }
         } else {
             setIsSelected(true);
@@ -29,6 +30,7 @@ const PlayerListContainer = ({list, playerSearch}: props) => {
             setSelectId(item[0].id);
             if (playerSearch) {
                 dispatch(setShowButton({showButton: true, search: playerSearch}))
+                dispatch(setPlayerIds({id: item[0].id, search: playerSearch}))
             }
         }
     }
@@ -47,7 +49,7 @@ const PlayerListContainer = ({list, playerSearch}: props) => {
                     }
                     {list?.data.map(item => {
                         return(
-                            <ListItem style={{backgroundColor: selectId == item.id ? '#A7E8F5' : 'white', borderRadius: '5px', margin: '3px'}}>
+                            <ListItem key={item.id} style={{backgroundColor: selectId == item.id ? '#A7E8F5' : 'white', borderRadius: '5px', margin: '3px'}}>
                                 <ListItemText primary={item.first_name + " " + item.last_name}/>
                                 <ListItemButton onClick={() => {
                                     handleClick([item]);
