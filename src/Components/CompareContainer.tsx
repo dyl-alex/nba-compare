@@ -26,10 +26,10 @@ const CompareContainer = ({playerStats}: props) => {
         <div>
             <div className="flex w-full">
                 <div className="flex-1 ml-3">
-                    <CompareStatsContainer player={1} nbaId={nbaIds ? nbaIds[0][" NbaId"] : ''}/>
+                    <CompareStatsContainer player={1} nbaId={nbaIds ? nbaIds[0][" NbaId"] : ''} playerStats = {playerStats ? playerStats : undefined}/>
                 </div>
                 <div className="flex-1 mr-3">
-                    <CompareStatsContainer player={2} nbaId={nbaIds ? nbaIds[1][" NbaId"] : ''}/>
+                    <CompareStatsContainer player={2} nbaId={nbaIds ? nbaIds[1][" NbaId"] : ''} playerStats = {playerStats ? playerStats : undefined}/>
                 </div>
             </div>
         </div>

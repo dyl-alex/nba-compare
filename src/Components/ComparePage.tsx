@@ -28,6 +28,7 @@ const ComparePage = () => {
     }
     
     useEffect(() => {
+        console.log(playerIds);
         getPlayerStats({season: 2023, player_ids: playerIds})
     }, [])
 
