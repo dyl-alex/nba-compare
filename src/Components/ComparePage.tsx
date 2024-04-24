@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UseAppSelector, useAppDispatch } from "../store/Store";
 import { useLazyGetPlayerStatsQuery } from "../api/playerApi";
 import { useEffect, useState } from "react";
-import { setShowButton } from "../slice/appSlice";
+import { setPlayerStats, setShowButton, setShowGraph } from "../slice/appSlice";
 import { PlayerStats } from "../models/playerstats.model";
 import { csv } from 'd3-request';
 import * as d3 from "d3";
@@ -24,11 +24,11 @@ const ComparePage = () => {
     const handleClick = () => {
         dispatch(setShowButton({showButton: false, search: 1}))
         dispatch(setShowButton({showButton: false, search: 2}))
+        dispatch(setShowGraph(false))
         navigate('/');
     }
     
     useEffect(() => {
-        console.log(playerIds);
         getPlayerStats({season: 2023, player_ids: playerIds})
     }, [])
 

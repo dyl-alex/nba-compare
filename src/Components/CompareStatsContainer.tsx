@@ -68,7 +68,7 @@ const CompareStatsContainer = ({player, nbaId, playerStats} : props) => {
             <div className={`w-full h-full mt-5 bg-slate-100`}>
                 <div className={`w-[100px] sm:w-[200px] md:w-[300px] lg:w-[400px] h-[70px] sm:h-[160px] md:h-[250px] lg:h-[300px] m-auto`}>
                     {nbaId &&
-                    <img src={`https://cdn.nba.com/headshots/nba/latest/1040x760/${nbaId && player === 1 ? nbaId : (nbaId && player === 2 ? nbaId : '')}.png`}></img>
+                    <img src={`${nbaId && nbaId === '0' ? 'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg' : `https://cdn.nba.com/headshots/nba/latest/1040x760/${nbaId && player === 1 ? nbaId : (nbaId && player === 2 ? nbaId : '')}.png`}`} style={{}}></img>
                     }
                 </div>
                 <div className="w-full m-auto min-h-[30px] text-2xl">{playerName}</div>

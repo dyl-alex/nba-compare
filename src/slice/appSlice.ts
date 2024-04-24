@@ -16,7 +16,8 @@ interface appState {
    playerStats: {
     playerOne: PlayerStats,
     playerTwo: PlayerStats
-   }
+   },
+   showGraph: boolean
 }
 
 const initialState: appState = {
@@ -84,7 +85,8 @@ const initialState: appState = {
               season: 0
             }
           ]}
-       }
+       },
+       showGraph: false
 }
 
 const appSlice = createSlice({
@@ -118,9 +120,12 @@ const appSlice = createSlice({
             } else {
                 state.playerStats.playerTwo = action.payload.stats
             }
+        },
+        setShowGraph(state, action: PayloadAction<boolean>) {
+            state.showGraph = action.payload;
         }
         
     }
 })
-export const {setShowButton, setPlayerIds, setPlayerNames, setPlayerStats} = appSlice.actions
+export const {setShowButton, setPlayerIds, setPlayerNames, setPlayerStats, setShowGraph} = appSlice.actions
 export default appSlice.reducer
