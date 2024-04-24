@@ -15,11 +15,11 @@ const ComparePage = () => {
     const dispatch = useAppDispatch();
 
     const [cannotCompare, setCannotCompare] = useState(false);
-
+    const [reloaded, setReloaded] = useState(false);
     const playerIds = UseAppSelector(store => store.app.playerIds)
 
     const [getPlayerStats, {data: playerData, isSuccess: playerDataSuccess, isLoading: playerDataLoading, isFetching: playerDataFetching}] = useLazyGetPlayerStatsQuery();
-
+    
 
     const handleClick = () => {
         dispatch(setShowButton({showButton: false, search: 1}))
@@ -27,6 +27,17 @@ const ComparePage = () => {
         dispatch(setShowGraph(false))
         navigate('/');
     }
+
+    useEffect(() => {
+        window.onbeforeunload = function() {
+            navigate('/')
+            return true;
+        };
+    
+        return () => {
+            window.onbeforeunload = null;
+        };
+    }, []);
     
     useEffect(() => {
         getPlayerStats({season: 2023, player_ids: playerIds})
@@ -40,7 +51,7 @@ const ComparePage = () => {
 
     return (
         <div>
-            <div className="w-full h-screen">
+            <div className="w-full h-full">
                 <div className="w-[90%] h-full bg-slate-200 m-auto">
                     <div className="flex w-full bg-slate-100 pb-5">
                         <div className="flex-none mt-3 pl-3 fixed">

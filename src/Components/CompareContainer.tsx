@@ -14,7 +14,7 @@ interface props {
 const CompareContainer = ({playerStats}: props) => {
 
     const playerNames = UseAppSelector(store => store.app.playerName);
-    const showGraph = UseAppSelector(store => store.app.showButton);
+    const showGraph = UseAppSelector(store => store.app.showGraph);
 
     const [nbaIds, setNbaIds] = useState<DSVRowString<string>[]>();
 
@@ -27,24 +27,19 @@ const CompareContainer = ({playerStats}: props) => {
             } else if (item[1] === undefined) {
                 item[1] = {"Name": playerNames.nameOne, " NbaId": '0'}
             }
-            console.log(item);
             setNbaIds(item)
         });
         }, [])
-
-    useEffect(() => {
-        dispatch(setShowGraph(true));
-    }, [playerStats])
 
 
     return (
         <div>
             <div className="flex w-full">
                 <div className="flex-1 ml-3">
-                    <CompareStatsContainer player={1} nbaId={nbaIds ? nbaIds[0][" NbaId"] : ''} playerStats = {playerStats ? playerStats : undefined}/>
+                    <CompareStatsContainer player={1} nbaId={nbaIds && nbaIds[0] ? nbaIds[0][" NbaId"] : ''} playerStats = {playerStats ? playerStats : undefined}/>
                 </div>
                 <div className="flex-1 mr-3">
-                    <CompareStatsContainer player={2} nbaId={nbaIds ? nbaIds[1][" NbaId"] : ''} playerStats = {playerStats ? playerStats : undefined}/>
+                    <CompareStatsContainer player={2} nbaId={nbaIds && nbaIds[1] ? nbaIds[1][" NbaId"] : ''} playerStats = {playerStats ? playerStats : undefined}/>
                 </div>
             </div>
             <div className="flex w-full">

@@ -4,7 +4,7 @@ import { UseAppSelector, useAppDispatch } from "../store/Store";
 import { DSVRowString } from "d3";
 import { DataGrid } from '@mui/x-data-grid';
 import { PlayerStats } from "../models/playerstats.model";
-import { setPlayerStats } from "../slice/appSlice";
+import { setPlayerStats, setShowGraph } from "../slice/appSlice";
 
 
 
@@ -61,12 +61,13 @@ const CompareStatsContainer = ({player, nbaId, playerStats} : props) => {
                     }
                 })
             }
+            dispatch(setShowGraph(true))
         }
     }, [playerStats])
     return (
         <>
-            <div className={`w-full h-full mt-5 bg-slate-100`}>
-                <div className={`w-[100px] sm:w-[200px] md:w-[300px] lg:w-[400px] h-[70px] sm:h-[160px] md:h-[250px] lg:h-[300px] m-auto`}>
+            <div className={`w-full h-full mt-5 bg-slate-100 pt-4`}>
+                <div className={`w-[90px] sm:w-[200px] md:w-[300px] lg:w-[400px] h-[66px] sm:h-[146px] md:h-[219px] lg:h-[290px] m-auto border-2 bg-white border-slate-200 rounded-md sm:rounded-xl`}>
                     {nbaId &&
                     <img src={`${nbaId && nbaId === '0' ? 'https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg' : `https://cdn.nba.com/headshots/nba/latest/1040x760/${nbaId && player === 1 ? nbaId : (nbaId && player === 2 ? nbaId : '')}.png`}`} style={{}}></img>
                     }
@@ -74,31 +75,31 @@ const CompareStatsContainer = ({player, nbaId, playerStats} : props) => {
                 <div className="w-full m-auto min-h-[30px] text-2xl">{playerName}</div>
                 <div className="w-[90%] m-auto min-h-[50px] mt-3 flex">
                     <div className="flex-1 sm:text-lg bg-slate-400 pt-2 rounded-tl-lg">PPG: </div>
-                    <div className={`flex-1 sm:text-lg pt-2 rounded-tr-lg ${player === 1 && playerOne.data[0].pts > playerTwo.data[0].pts ? 'bg-green-300' : (player === 2 && playerOne.data[0].pts < playerTwo.data[0].pts ? 'bg-green-300' : 'bg-red-300')}`}>{stats.pts}</div>
+                    <div className={`flex-1 sm:text-lg pt-2 rounded-tr-lg ${player === 1 && playerOne.data[0].pts > playerTwo.data[0].pts ? 'bg-green-300' : (player === 2 && playerOne.data[0].pts < playerTwo.data[0].pts ? 'bg-green-300' : 'bg-red-300')}`}>{Math.round(stats.pts * 100) / 100}</div>
                 </div>
                 <div className="w-[90%] m-auto min-h-[50px] flex">
                     <div className="flex-1 text-sm sm:text-lg bg-slate-400 pt-2">Rebounds: </div>
-                    <div className={`flex-1 text-md sm:text-lg pt-2 ${player === 1 && playerOne.data[0].reb > playerTwo.data[0].reb ? 'bg-green-300' : (player === 2 && playerOne.data[0].reb < playerTwo.data[0].reb ? 'bg-green-300' : 'bg-red-300')}`}>{stats.reb}</div>
+                    <div className={`flex-1 text-md sm:text-lg pt-2 ${player === 1 && playerOne.data[0].reb > playerTwo.data[0].reb ? 'bg-green-300' : (player === 2 && playerOne.data[0].reb < playerTwo.data[0].reb ? 'bg-green-300' : 'bg-red-300')}`}>{Math.round(stats.reb * 100) / 100}</div>
                 </div>
                 <div className="w-[90%] m-auto min-h-[50px] flex">
                     <div className="flex-1 sm:text-lg bg-slate-400 pt-2">Assists: </div>
-                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].ast > playerTwo.data[0].ast ? 'bg-green-300' : (player === 2 && playerOne.data[0].ast < playerTwo.data[0].ast ? 'bg-green-300' : 'bg-red-300')}`}>{stats.ast}</div>
+                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].ast > playerTwo.data[0].ast ? 'bg-green-300' : (player === 2 && playerOne.data[0].ast < playerTwo.data[0].ast ? 'bg-green-300' : 'bg-red-300')}`}>{Math.round(stats.ast * 100) / 100}</div>
                 </div>
                 <div className="w-[90%] m-auto min-h-[50px] flex">
                     <div className="flex-1 sm:text-lg pt-2 bg-slate-400">Steals: </div>
-                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].stl > playerTwo.data[0].stl ? 'bg-green-300' : (player === 2 && playerOne.data[0].stl < playerTwo.data[0].stl ? 'bg-green-300' : 'bg-red-300')}`}>{stats.stl}</div>
+                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].stl > playerTwo.data[0].stl ? 'bg-green-300' : (player === 2 && playerOne.data[0].stl < playerTwo.data[0].stl ? 'bg-green-300' : 'bg-red-300')}`}>{Math.round(stats.stl * 100) / 100}</div>
                 </div>
                 <div className="w-[90%] m-auto min-h-[50px] flex">
                     <div className="flex-1 sm:text-lg pt-2 bg-slate-400">Blocks: </div>
-                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].blk > playerTwo.data[0].blk ? 'bg-green-300' : (player === 2 && playerOne.data[0].blk < playerTwo.data[0].blk ? 'bg-green-300' : 'bg-red-300')}`}>{stats.blk}</div>
+                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].blk > playerTwo.data[0].blk ? 'bg-green-300' : (player === 2 && playerOne.data[0].blk < playerTwo.data[0].blk ? 'bg-green-300' : 'bg-red-300')}`}>{Math.round(stats.blk * 100) / 100}</div>
                 </div>
                 <div className="w-[90%] m-auto min-h-[50px] flex">
                     <div className="flex-1 sm:text-lg pt-2 bg-slate-400">FG%: </div>
-                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].fg_pct > playerTwo.data[0].fg_pct ? 'bg-green-300' : (player === 2 && playerOne.data[0].fg_pct < playerTwo.data[0].fg_pct ? 'bg-green-300' : 'bg-red-300')}`}>{stats.fg_pct * 100 + "%"}</div>
+                    <div className={`flex-1 sm:text-lg pt-2 ${player === 1 && playerOne.data[0].fg_pct > playerTwo.data[0].fg_pct ? 'bg-green-300' : (player === 2 && playerOne.data[0].fg_pct < playerTwo.data[0].fg_pct ? 'bg-green-300' : 'bg-red-300')}`}>{Math.round(stats.fg_pct * 100) / 100 * 100 + "%"}</div>
                 </div>
                 <div className="w-[90%] m-auto min-h-[50px] flex">
                     <div className="flex-1 text-md sm:text-lg pt-2 bg-slate-400 rounded-bl-lg">3FG%: </div>
-                    <div className={`flex-1 sm:text-lg pt-2 rounded-br-lg ${player === 1 && playerOne.data[0].fg3_pct > playerTwo.data[0].fg3_pct ? 'bg-green-300' : (player === 2 && playerOne.data[0].fg3_pct < playerTwo.data[0].fg3_pct ? 'bg-green-300' : 'bg-red-300')}`}>{stats.fg3_pct * 100 + "%"}</div>
+                    <div className={`flex-1 sm:text-lg pt-2 rounded-br-lg ${player === 1 && playerOne.data[0].fg3_pct > playerTwo.data[0].fg3_pct ? 'bg-green-300' : (player === 2 && playerOne.data[0].fg3_pct < playerTwo.data[0].fg3_pct ? 'bg-green-300' : 'bg-red-300')}`}>{Math.round(stats.fg3_pct * 100) / 100 * 100 + "%"}</div>
                 </div>
             </div>
         </>

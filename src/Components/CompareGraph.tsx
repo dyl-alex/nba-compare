@@ -51,7 +51,7 @@ const CompareGraph = ({playerStats}: props) => {
             stepSize: 20,
           },
           xaxis: {
-            categories: ['PPG', 'Rebounding', 'Shooting', 'Floor Defense', 'Rim Defense', 'Playmaking']
+            categories: ['PPG', 'Rebounding (REB)', 'Shooting (EFG)', 'Floor Defense (STL)', 'Rim Defense (BLK)', 'Playmaking (AST)'],
           }
     })
 
@@ -91,7 +91,7 @@ const CompareGraph = ({playerStats}: props) => {
                 stepSize: 20,
               },
               xaxis: {
-                categories: ['PPG', 'Rebounding', 'Shooting', 'Floor Defense', 'Rim Defense', 'Playmaking']
+                categories: ['PPG', 'Rebounding (REB)', 'Shooting (EFG%)', 'Floor Defense (STL)', 'Rim Defense (BLK)', 'Playmaking (AST)']
               }
         })
     }, [playerStats])
