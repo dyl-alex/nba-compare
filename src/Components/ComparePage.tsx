@@ -51,7 +51,7 @@ const ComparePage = () => {
 
     return (
         <div>
-            <div className="w-full h-full">
+            <div className="w-full h-full bg-gradient-to-t from-orange-100 via-orange-600 to-amber-500">
                 <div className="w-[90%] h-full bg-slate-200 m-auto">
                     <div className="flex w-full bg-slate-100 pb-5">
                         <div className="flex-none mt-3 pl-3 fixed">
